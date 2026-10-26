@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Vanilla JavaScript Router - Sangwin</title>
+</head>
+
+<body>
+    <ul>
+        <li><a href="#" onclick="onNavigate('/about'); return false;">About</a></li>
+        <li><a href="#" onclick="onNavigate('/'); return false;">Home</a></li>
+        <li><a href="#" onclick="onNavigate('/contact'); return false;">Contact</a></li>
+    </ul>
+    <div id="app"></div>
+    <script>
+        let home = `<h4>This is a home page</h4>`;
+        let contact = `<h4>This is a contact page</h4>`;
+        let about = `<h4>This is a about page</h4>`;
+        const routes = {
+            '/': home,
+            '/about': about,
+            '/contact': contact,
+        };
+
+
+        const appDiv = document.getElementById('app');
+        appDiv.innerHTML = routes[window.location.pathname];
+
+        const onNavigate = (pathname) => {
+            window.history.pushState(
+                {},
+                pathname,
+                window.location.origin + pathname
+            )
+            appDiv.innerHTML = routes[pathname]
+        }
+
+        window.onpopstate = () => {
+            appDiv.innerHTML = routes[window.location.pathname]
+        }
+    </script>
+</body>
+
+</html>
